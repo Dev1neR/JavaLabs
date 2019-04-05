@@ -38,6 +38,6 @@ class Lab4Test {
     @Test
     public void testIsNotInside(){
         boolean a = Lab4.isInside(0, 0, 20, 0, 20, 30, 40, 55);
-        assertEquals(true, a);
+        assertEquals(false, a);
     }
 }
