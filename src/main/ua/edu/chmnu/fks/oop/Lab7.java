@@ -57,17 +57,17 @@ public class Lab7 {
         };
 
         
-        System.out.println("Было");
+        System.out.println("Массив до сортировки - ");
         printArray(arr);
 
         int high = arr.length - 1;
 
         qsort.sort(arr, 0, high);
-        System.out.println("Стало");
+        System.out.println("Массив после сортировки - ");
         printArray(arr);
     }
     public static void printArray(int arr[]) {
-         System.out.println(Arrays.toString(arr));
+         System.out.print(Arrays.toString(arr));
     }
     
     @FunctionalInterface
