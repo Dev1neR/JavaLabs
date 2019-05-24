@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.ua.edu.chmnu.fks.oop.lab9;
+package main.ua.edu.chmnu.fks.oop;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,42 +20,34 @@ import java.util.Objects;
  * @author Dev1ne
  */
 public class Lab9 {
-    
+
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
         String filename = "out.txt";
         String search = "Petya";
         ArrayList<Employees> empl = new ArrayList<Employees>();
-//        Employees empl1 = new Employees(
-//                "Vasya",
-//                21,
-//                4000
-//        );
-//        Employees empl2 = new Employees(
-//                "Vasya",
-//                39,
-//                5000
-//        );
-//        Employees empl3 = new Employees(
-//                "Dasya",
-//                31,
-//                2000
-//        );
-        empl.add(new Employees("Vasya",21,4000));
-        empl.add(new Employees("Petya",30,5000));
-        
+        empl.add(new Employees("Vasya", 21, 4000));
+        empl.add(new Employees("Petya", 30, 5000));
+
+        write(filename, empl);
+        ArrayList<Employees> searchedEmpl = new ArrayList<Employees>();
+        read(filename, searchedEmpl, search);
+    }
+
+    public static void write(String filename, ArrayList<Employees> empl) throws FileNotFoundException, IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(empl);
-            System.out.println("File has been written\n");
+            System.out.println("File has been written\n");          
         }
-        
-        ArrayList<Employees> searchedEmpl = new ArrayList<Employees>();
+    }
+
+    public static void read(String filename, ArrayList<Employees> searchedEmpl, String search) throws FileNotFoundException, IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
-            searchedEmpl = ((ArrayList<Employees>)(in.readObject()));
-        }
-        for(Employees e : searchedEmpl) {
-            if(e.getName().equals(search)) {
-            System.out.println("Restored data: " + e.getName() +", " +e.getAge()+", "+e.getSalary());
+            searchedEmpl = ((ArrayList<Employees>) (in.readObject()));
+            for (Employees e : searchedEmpl) {
+                if (e.getName().equals(search)) {
+                    System.out.println("Restored data: " + e.getName() + ", " + e.getAge() + ", " + e.getSalary());
+                }
             }
         }
-    }  
+    }
 }
