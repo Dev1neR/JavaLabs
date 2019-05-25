@@ -14,10 +14,10 @@ import java.util.List;
  *
  * @author Dev1ne
  */
-public class LibraryApp {
+public class LibraryApp extends Library{
 
-    private static Library library;
-    private static ArrayList<Book> books;
+//    private static Library library;
+//    private static ArrayList<Book> books;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         String filename = "BookLibrary.txt";
@@ -64,6 +64,7 @@ public class LibraryApp {
 
         library.saveToFile(filename);
         library.loadFromFile(filename);        
-        System.out.println(library.getByAuthor("aa").toString());
+        System.out.println(actions.getBooks());
+        System.out.println(actions.getByISBN("978-0651615454").toString());
     }
 }

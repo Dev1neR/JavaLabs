@@ -20,10 +20,12 @@ import java.util.stream.Collectors;
  *
  * @author Dev1ne
  */
-public class Library {
+public class Library implements LibActions {
 
-    private Library library;
-    private ArrayList<Book> books;
+    static Library actions = new Library();
+
+    public static Library library;
+    public static ArrayList<Book> books;
 
     public Library() {
         books = new ArrayList<>();
@@ -59,18 +61,22 @@ public class Library {
         }
     }
 
+    @Override
     public List<Book> getByISBN(String isbn) {
         return books.stream().filter(b -> (b.getIsbn() == null ? isbn == null : b.getIsbn().equals(isbn))).collect(Collectors.toList());
     }
 
+    @Override
     public List<Book> getByAuthor(String author) {
         return books.stream().filter(b -> (b.getAuthor() == null ? author == null : b.getAuthor().equals(author))).collect(Collectors.toList());
     }
 
+    @Override
     public List<Book> getByDate(Date date) {
         return books.stream().filter(b -> b.getDate().getDate() == date.getDate()).collect(Collectors.toList());
     }
 
+    @Override
     public List<Book> getByPage(int from, int to) {
         return books.stream().filter(b -> b.getPages() >= from && b.getPages() <= to).collect(Collectors.toList());
     }
