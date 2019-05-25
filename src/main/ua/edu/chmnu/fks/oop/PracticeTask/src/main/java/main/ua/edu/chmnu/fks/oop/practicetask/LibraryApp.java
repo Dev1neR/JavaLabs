@@ -16,12 +16,11 @@ import java.util.List;
  */
 public class LibraryApp extends Library{
 
-//    private static Library library;
-//    private static ArrayList<Book> books;
+    private static Library library;
+    private static ArrayList<Book> books;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        String filename = "BookLibrary.txt";
-        
+        Library actions = new Library();
         library = new Library();
         books = new ArrayList<Book>();
 
@@ -52,19 +51,21 @@ public class LibraryApp extends Library{
         );
         books.add(book3);
         Book book4 = new Book(
-                "978-031615454",
+                "978-031615452",
                 "aa",
-                "The Siders",
+                "The Sidez",
                 new Date("05/21/1994"),
-                274
+                22
         );
         books.add(book4);
         library.setBooks(books);
-//        library.getByAuthor(filename, books, "J. M. Barrie");     
-
+        
         library.saveToFile(filename);
-        library.loadFromFile(filename);        
+        library.loadFromFile(filename);    
+//        library.appendToFile(filename);
+//        library.loadFromFile(filename);
+        
         System.out.println(actions.getBooks());
-        System.out.println(actions.getByISBN("978-0651615454").toString());
+        System.out.println(actions.getByAuthor("aa").toString());
     }
 }

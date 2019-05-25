@@ -5,12 +5,16 @@
  */
 package main.ua.edu.chmnu.fks.oop.practicetask;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +26,9 @@ import java.util.stream.Collectors;
  */
 public class Library implements LibActions {
 
-    static Library actions = new Library();
-
-    public static Library library;
-    public static ArrayList<Book> books;
+    private static Library library;
+    private static ArrayList<Book> books;
+    static String filename = "BookLibrary.txt";
 
     public Library() {
         books = new ArrayList<>();
@@ -45,16 +48,28 @@ public class Library implements LibActions {
 
     public void saveToFile(String filename) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filename, false);
-                ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                ObjectOutputStream oos = new ObjectOutputStream(bufferedOutputStream)) {
             oos.writeObject(books);
         } catch (IOException e) {
             System.out.println("Something went wrong while saving");
         }
     }
 
+//    public void appendToFile(String filename) {
+//        try (FileOutputStream fileOutputStream = new FileOutputStream(filename, true);
+//                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+//                ObjectOutputStream oos = new ObjectOutputStream(bufferedOutputStream)) {
+//            oos.writeObject(books);
+//        } catch (IOException e) {
+//            System.out.println("Something went wrong while saving");
+//        }
+//    }
+
     public void loadFromFile(String filename) throws IOException, ClassNotFoundException {
         try (FileInputStream fileInputStream = new FileInputStream(filename);
-                ObjectInputStream ois = new ObjectInputStream(fileInputStream)) {
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+                ObjectInputStream ois = new ObjectInputStream(bufferedInputStream)) {
             setBooks((ArrayList<Book>) ois.readObject());
         } catch (IOException e) {
             System.out.println("Something went wrong while loading");
