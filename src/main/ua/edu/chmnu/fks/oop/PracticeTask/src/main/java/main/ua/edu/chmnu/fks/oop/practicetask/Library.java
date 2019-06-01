@@ -51,20 +51,23 @@ public class Library implements LibActions {
                 BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
                 ObjectOutputStream oos = new ObjectOutputStream(bufferedOutputStream)) {
             oos.writeObject(books);
+            oos.close();
         } catch (IOException e) {
             System.out.println("Something went wrong while saving");
         }
     }
 
-//    public void appendToFile(String filename) {
-//        try (FileOutputStream fileOutputStream = new FileOutputStream(filename, true);
-//                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-//                ObjectOutputStream oos = new ObjectOutputStream(bufferedOutputStream)) {
-//            oos.writeObject(books);
-//        } catch (IOException e) {
-//            System.out.println("Something went wrong while saving");
-//        }
-//    }
+    public void appendToFile(String filename) {
+       try (FileOutputStream fileOutputStream = new FileOutputStream(filename, true);
+               BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+               ObjectOutputStream oos = new ObjectOutputStream(bufferedOutputStream)) {
+           oos.writeObject(books);
+           oos.flush();
+           oos.close();
+       } catch (IOException e) {
+            System.out.println("Something went wrong while saving");
+        }
+    }
 
     public void loadFromFile(String filename) throws IOException, ClassNotFoundException {
         try (FileInputStream fileInputStream = new FileInputStream(filename);
